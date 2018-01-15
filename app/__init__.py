@@ -1,7 +1,9 @@
 from flask import Flask
 from flask_socketio import SocketIO
+import eventlet
+eventlet.monkey_patch(socket=True)
 
-socketio = SocketIO()
+socketio = SocketIO(message_queue='redis://', async_mode='eventlet')
 
 
 def create_app(debug=False):
@@ -15,4 +17,3 @@ def create_app(debug=False):
 
     socketio.init_app(app)
     return app
-
