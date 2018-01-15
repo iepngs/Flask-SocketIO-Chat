@@ -3,7 +3,11 @@ from flask_socketio import SocketIO
 import eventlet
 eventlet.monkey_patch(socket=True)
 
-socketio = SocketIO(message_queue='redis://', async_mode='eventlet')
+# No Redis (works)
+socketio = SocketIO(async_mode='eventlet')
+
+# With Redis (bug)
+# socketio = SocketIO(message_queue='redis://', async_mode='eventlet')
 
 
 def create_app(debug=False):
